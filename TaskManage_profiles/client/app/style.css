@@ -1,0 +1,30 @@
+.table_container {
+	margin-left: 10%;
+}
+.table {
+	width: 60%;
+}
+
+.login_form {
+  width: 600px;
+  margin: 20px auto;
+}
+
+
+.form_container {
+	position: absolute;
+	margin-left: 10%;
+	width: 70%;
+}
+
+.form_container .col-sm-2 {
+	margin-right: 10px;
+	display: inline;
+}
+
+.form-horizontal {
+	width: 60%;
+}
+
+.play_button {
+border: solid}

@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>Tiger Info</title>
+	<style>
+		.main{
+			margin-left: 45px;
+			margin-top: 45px;
+		}
+		.link {
+			margin-left: 45px;
+		}
+	</style>
+</head>
+<body>
+	<div class='main'>
+	<h3>Here is the Info for the Tiger</h3>
+	<% for (var x in tigerstud) { %>
+		<h3>Name:<%=tigerstud[x].name%> </h3>
+		<h3>Info:<%=tigerstud[x].info%> </h3>
+		<h3>Birthday:<%=tigerstud[x].birthday%> </h3>
+		<h3>Identification #: <%=tigerstud[x]._id%></h3>
+	<% } %>
+	</div>
+<a class ='link' href="/editTiger/<%=tigerstud[x]._id%>">Edit This Tiger</a>
+</body>
+</html>

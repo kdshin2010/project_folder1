@@ -1,0 +1,66 @@
+<div ng-controller = 'OrdersController' style='margin-left:20px'>
+	<div ng-show='show_table_order' ng-init='show_table_order = false' style='text-align: center'>
+		<table class="pure-table" align='center'>
+	    <thead>
+	    	<h3>Table Number : {{tablenumber}}</h3>
+	        <tr>
+	            <th>Items</th>
+	            <th>Price</th>
+	            <th>Category</th>
+	            <th>Actions</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr ng-repeat = 'cc in testItems'>
+	        	<td>{{cc.name}}</td>
+	        	<td>{{cc.price}}</td>
+	        	<td>{{cc.category}}</td>
+	        	<td><button ng-click = 'removeOrderItem(cc)'>Remove</td>
+	        </tr>
+	    </tbody>
+	</table>
+	<a href="#/vieworders">View Order</a>
+</div>
+	<h3>Add Orders</h3>
+	<form>
+		<div id='select_table' >
+			<form>
+				<select ng-model='tablenumber' >
+    				<option value="" disabled selected>Select Table Number</option>
+					<option value='1'>1</option>
+					<option value='2'>2</option>
+					<option value='3'>3</option>
+					<option value='4'>4</option>
+					<option value='5'>5</option>
+					<option value='6'>6</option>
+					<option value='7'>7</option>
+					<option value='8'>8</option>
+					<option value='9'>9</option>
+					<option value='10'>10</option>
+				</select>
+			<button ng-click = 'addTable()'>Select Table</button>
+			</form>
+			<div ng-show='error_message' ng-init='error_message = false'>
+				<p id='error_message'>You Need to Select a Table</p>
+			</div>
+		</div>
+		<div ng-show='view_order_items' ng-repeat = 'menu in menu_items' id='menu_content'>
+			<h3 class='menu_header'>{{menu.name}}</h3>
+			<table class="table">
+				<tr id='table_font'>
+					<th>Item #</th>
+					<th>Item Name</th>
+					<th>Item Price</th>
+					<th>Actions</th>
+				</tr>
+			<tr ng-repeat='x in menu.items' ng-init = 'menu_count =  1 + $index' id='table-list'>
+				<td>{{category_count}}{{menu_count}}
+				<td>{{x.name}}</td>
+				<td>{{x.price}}</td>
+				<td><button class="btn btn-primary" ng-click='addOrderItem(x, menu)'>Add Item</td>
+			</tr>
+			</table>
+		</div>
+		<button id='add_order' ng-click = 'addOrder()' class='btn btn-success'>Add Order</button>
+	</form>
+</div>

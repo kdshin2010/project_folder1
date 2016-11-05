@@ -1,0 +1,34 @@
+<html>
+<head>
+	<title>Edit This Tiger</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<style>
+		.edit_body {
+			width:500px;
+			margin-left: 45px;
+		}
+		.title {
+			margin-left: 45px;
+		}
+	</style></head>
+<body>
+	<h3 class='title'>Edit This Tiger Name</h3>
+	<div class='edit_body'>
+		<form action='/updateTiger' method='post'>
+		  <div class="form-group">
+		    <label>Name</label>
+		    <input type="text" name='name' class="form-control" placeholder="Name">
+		  </div>
+		  <div class="form-group">
+		    <label>New Information</label>
+		    <input type="text" name="info" class="form-control" placeholder="Information">
+		  </div>
+		  <div class="form-group">
+		    <label>New Birthday</label>
+		    <input type="text" name='birthday' class="form-control" placeholder="Birthday">
+		  </div>
+		  <button>Submit</button>
+		</form>
+	</div>
+</body>
+</html>

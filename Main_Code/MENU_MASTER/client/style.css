@@ -1,0 +1,91 @@
+#main_page {
+	margin-left:20px;
+	width: 1200px
+}
+#sizing-addon1{
+	width: 45;
+}
+#home_logo {
+	position: absolute;
+	top: 17%;
+	left: 45%;
+}
+
+#category_box{
+	width: 300px;
+	position: absolute;
+    height: 200px;
+    margin: -100px 0 0 -200px;
+    top: 38%;
+    left: 55%;
+}
+
+#home {
+	text-align: center;
+	color: blue;
+	font-size: 2em;
+}
+#menu_item_box {
+	position: absolute;
+	top: 40%;
+	left: 20%;
+	margin-top:50px;
+	margin-left: 20px;
+}
+
+#menu_container{
+	margin-left: 30px;
+}
+#menu_content{
+	width: 500px;
+	display: inline-block;
+	vertical-align: top;
+	overflow: scroll;
+	height: 300px;
+	border: outset;
+	margin:10px;
+}
+.menu_header{
+	font-family: "Arial Black", Gadget, sans-serif;
+}
+#table-font{
+	font-family: times;
+}
+#table-list{
+	font-family: "Lucida Console", Monaco, monospace;
+}
+#select_table {
+	margin-left: 10px;
+}
+#add_order {
+	margin-top: 20px;
+}
+#error_message {
+	color:red;
+}
+#showing_order {
+	width: 350px;
+	height: 200px;
+	margin-left: 380px;
+}
+#TableHead {
+	font-family: Verdana;
+	text-align: center;
+}
+#ItemNameItemPrice {
+	font-family: "Comic Sans MS", cursive, sans-serif;
+	text-align: center;
+}
+#thisitem {
+	text-align: center;
+}
+#view_order_table {
+	width: 350px;
+	margin-left: 35px;
+	display: inline-block;
+	overflow: scroll;
+	height: 300px;
+	bprde
+}
+
+

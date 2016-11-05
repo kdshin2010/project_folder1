@@ -1,0 +1,19 @@
+<div ng-controller = 'OrdersController'>
+
+	<div class='view_order_container'>
+		<table class="table" id='view_order_table' border='' ng-repeat = 'order in orders'>
+			<tr id='table_font'>
+				<th>Table #: {{order.table}}</th>
+				<th>Item Name</th>
+				<th>Item Price</th>
+				<th><button ng-click = 'removeOrder(order)'>Remove Order </button></th>
+			</tr>
+			<tr ng-repeat = 'ab in order.items'>
+				<td>--</td>
+				<td>{{ab.name}}</td>
+				<td>{{ab.price}}</td>
+				<td><button ng-click='removeOrderItem(ab)'>Remove</button>
+			</tr>
+		</table>
+	</div>
+</div>

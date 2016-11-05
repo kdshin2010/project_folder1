@@ -1,0 +1,7 @@
+<h3>Editing Categoreis</h3>
+<div ng-controller = 'MenuController'>
+	<div ng-repeat = 'x in menuCategories'>
+		<p>{{x.name}}</p>
+		<p><button ng-click = 'removeCategory(x)'>Remove This Category</button>
+	</div>
+</div>

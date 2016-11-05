@@ -1,0 +1,78 @@
+
+<html>
+<head>
+    <title>Conversation Chat Room</title>
+    <style type="text/css">
+        #messages {
+            border:3px solid black;
+        }
+        #messages {
+            width:500px;
+            padding-left: 20px;
+        }
+        html {
+            margin:0 auto;
+            width:970px;
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function()
+    {
+        var socket = io.connect();
+        var name = prompt('Enter your name for the chatroom');
+        socket.emit('got_new_user', {name: name});
+
+        $('#logoff').click (function(){
+            socket.emit('logoff', {name: name});
+        })
+
+        $('#submit').submit(function(){
+            socket.emit('submit', {message: $('#message').val(), user: name});
+            return false;
+        })
+
+        socket.on('display_users', function(data){
+            for(var x in data)
+            {
+                $('#chat').append("<p>" + data[x] + " has entered the chatroom </p>");
+            }
+        });
+
+        socket.on('user_disconnected', function(data){
+            name = "";
+            $('#chat').append("<p>" + data.name + " has left the chatroom </p>");
+        });
+
+        socket.on("load_messages", function(data){
+            current_user = data.current_user;
+            var messages = data.messages;
+            var string = '';
+
+            for(var x=0; x<messages.length; x++)
+            {
+                string += "<p>" + messages[x].name + ": " + messages[x].message + "</p>";
+            }
+            $('#messages').append(string);
+        })
+
+        socket.on('post_new_message', function(data){
+            $('#messages').append('<p>' + data.user + ": " + data.new_message + "</p>");
+        })
+    })
+    </script>
+</head>
+<body>
+    <h1>ChatRoom</h1>
+    <div id="errors"></div>
+    <div id="chat"></div>
+    <h2>Message Board</h2>
+    <div id="messages"></div><br><br>
+    <form id="submit">
+            <input id ='message' type='text' name='message' placeholder="Enter your message here">
+            <input type='submit' value='Post'>
+        </form>
+    <button id="logoff">Log Off</button>
+</body>
+</html>

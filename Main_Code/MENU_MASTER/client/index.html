@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Menu Application></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+
+
+</head>
+<body ng-app='menu'>
+	<ul class="nav nav-tabs">
+	  <li role="presentation" class="active"><a href="#/">Home</a></li>
+	  <li role="presentation"><a href="#/viewmenu">View Menu</a></li>
+	  <li role="presentation"><a href="#/addorders">Add Orders</a></li>
+	  <li role="presentation"><a href="#/vieworders">View Orders</a></li>
+	  <li role="presentation"><a href="#/editcategories">Edit Categories</a>
+	</ul>
+<!-- 	<div id="nav_bar">
+		<a href="#/">Home</a> | <a href="#/additems">Add Menu Items</a> | <a href="#/viewmenu">View Menu</a> | <a href="#/vieworders">View Orders | <a href="#/viewcategories">View Categories</a></a>
+	</div><br> -->
+	<div ng-view="">
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-route.min.js"></script>
+	<script src="script.js"></script>
+</body>
+</html>

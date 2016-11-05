@@ -1,0 +1,115 @@
+-set up Firebase/ Angular
+
+-Create view POST and BROSE View
+
+-CREATE 3 new HTML FILES to:
+	-post
+	-edit
+	-browse
+
+-Modify Routes to allow templates to direct post/browse/edit view
+	-test
+
+-Create task controller (task.js --> add script src in index.html)	
+	
+	app.controller('TaskController', function($scope) {
+		$scope.title = 'Cleaning My House'
+	})
+
+	//test conroller in html view (input Taskcontroller in rpoutes for /post route)
+
+-In View Page use input to create Task Title
+	<input type .... ng-model = title
+
+	-Create form within the page
+
+	<div ...
+		<form ng-submit='postTask(task)'>
+			<input type .. ng-model ='task.title' .. </input
+			<textarea ng-model='task.description'...</textarea>
+			<input type='number' ng-model='task.total'</input>
+			<input type='submit' ...>
+		</form>
+
+-Modify TaskController (task.js)
+
+	-create postTask function (console.log $scope.postTask=function(task) {console.log(task)})
+
+-Send Data to Firebase
+
+	-integrate Firebase URL before routes
+	 .constant('FURL', 'https://task-ninja201588.firebaseio.com/')  
+
+	-inject firebase to controller/ declare variables
+
+		app.controller. .. function($scope, FURL, $firebase)
+
+		var ref = new Firebase(FURL);
+		var fbTasks = $firebase(ref.child('tasks')).$asArray
+
+		-modify postTask function
+		$scope.postTas = function(task) {
+			fbTasks.$add(task);
+		}
+
+	-Inject $location to task Controller
+		app.controller. .. function($scope, FURL, $firebase, $location)
+
+		-modify post function
+		$scope.postTaskk
+			...
+			$location.path('/browse')
+
+	-Retrieve tasks from FB data to browse view
+
+		$scope.tasks = fbTasks
+
+	-Modify Browse Page (add TaskController to browse view)
+		-on Browwse page
+
+	-Style Browser View
+
+	-Add Filter
+	limitTo filter
+		{{task.description | limitTo:25}}{{task.description.length > 25 "..."}}
+
+	-Modifying tasks
+		-change routes
+			.when('/edit/:taskId'),
+			...,
+			controller: 'TaskController'
+
+		-on browse.html, create edit link for each task
+			where
+		<a ng-repeat="task in tasks .... ng-href="#/edit/{{task.$id}}" (unique id from firebase)
+			*note use ng-href because we are using angular markup in href link
+
+		-Update Edit Functionality
+		<div>
+			...
+			<form ng-submit='updateTask(selectedTask)'
+				<input ... ng-model="selectedTask.title">
+				<textarea ng-model="selectedTask.title"
+				<input type='number' ng-model='selectedTask.total'
+				<input type=.submit>
+				</form>
+
+	-Use routeParams for edit view
+
+		in controller inject $routeParams
+
+		app.controller....function(...., $routeParams)
+			var ref..
+			var taskId = $routeParams.taskId;
+
+			...if task ID provided is in URL
+			if(taskId) {
+				$scope.selectedTask = getTask(taskId);
+			}
+
+			function getTask(taskId) {
+				return $firebase(ref.child('tasks').child(taskId)).$asObject();
+			}
+
+
+

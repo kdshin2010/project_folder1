@@ -1,0 +1,56 @@
+<div class='main_container' ng-controller='MainCtrl'>
+
+	<div class='table_container' >
+		<h2>Hi 	{{user[0].username}} here are your tasks</h2>
+			<table class='table'>
+				<thead>
+					<tr>
+						<th>Tasks</th>
+						<th>Priority</th>
+						<th>Created</th>
+						<th>Deadline</th>
+						<th>Deadline</th>
+						<th>Actions</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat='task in tasks' | >
+						<td ng-bind='task.name'></td>
+						<td> {{task.priority}}</td>
+						<td> {{task.created | date:"MM/dd/yyyy"}}</td>
+						<td> {{task.deadline | date:"MM/dd/yyyy"}} </td>
+						<td> 12:00 am </td>
+						<td><button class='btn btn-danger' ng-click='removeTask(task._id)'>Remove</button></td>
+				
+				</tbody>
+			</table>
+		</div>
+	<div class='form_container' style='vertical-align: top'>
+		<h2><strong>Add a new task!</strong></h2>
+		<form class='form-inline'>
+			<div class='form-group'>
+				<label class='col-sm-2 control-label'>Task</label>
+				<div class='col-sm-10'>
+					<input type='datetime' ng-model='newTask.task' class='form-control'>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='col-sm-2 control-label'>Priority</label>
+				<div class='col-sm-10'>
+					<select ng-model='newTask.priority'>
+						<option value='HIGH'>HIGH</option>
+						<option value='MEDIUM'>MEDIUM</option>
+						<option value='LOW'>LOW</option>
+					</select>
+				</div>
+			</div>
+			<div class='form-group'>
+				<label class='col-sm-2 control-label'>Deadline</label>
+				<div class='col-sm-10'>
+					<input type='Date' class='form-control' ng-model='newTask.deadline'>
+				</div>
+			</div>
+			<button ng-click='addTask(user)'>Add Task</button>
+		</form>
+	</div>

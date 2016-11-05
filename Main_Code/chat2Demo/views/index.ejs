@@ -1,0 +1,220 @@
+<html>
+	<head>
+		<title>Group Chat</title>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+
+		<style type="text/css">
+			html{
+				width:970px;
+				margin:0 auto;
+			}
+
+			#activity{
+				display: inline-block;
+				width:30%;
+				vertical-align: top;
+				margin-left: 10px;
+				float:right;
+			}
+
+			nav{
+				padding-left: 15px;
+				padding-right: 15px;
+				background-color: blue;
+			}
+
+			#message_board{
+				/*margin-left:20px;*/
+				margin-right: 10px;
+				display: inline-block;
+				vertical-align: top;
+				/*margin-top: 20px;*/
+				/*background-color: #D6D6FF;*/
+				padding-top: 20px;
+				width:600px;
+				height:450px;
+				border:6px solid gray;
+				border-radius: 5px;
+				padding-left: 40px;
+				overflow: auto;
+			}
+			.room_list{
+				padding-left:5px;
+				padding-right:5px;
+			}
+			p{
+				margin-top: 3px;
+				font-size: 20px;
+			}
+			#name{
+				width:200px;
+				display:inline-block;
+				float:right;
+				text-align: right;
+				vertical-align: top;
+				margin-top: 17px;
+				/*margin-left: 30%;*/
+				font-size: 20px;
+			}
+			.update{
+				margin-top:0px;
+				margin-bottom:0px;
+				margin-left:10px;
+				font-size: 15px;
+			}
+
+			#body {
+				margin-top: 145px;
+			}
+
+			h2{
+				width:300px;
+				display: inline-block;
+			}
+			#logout{
+				float:right;
+			}
+
+			form{
+				margin-top: 30px;
+			}
+		</style>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+				//this triggers the connection event in our server
+				var socket = io.connect();
+
+
+				var current_user;
+
+				var new_user = function(){
+					// $('#error').empty();
+					var name = prompt('Please enter your name to enter chatroom');
+					socket.emit('page_load', {user: name});
+				}
+
+				new_user(); //send prompt to get name
+
+				socket.on('existing_user', function(data){
+					$('#error').html(data.errors);
+					new_user(); //send prompt again
+					$('#rooms').empty();
+				});
+
+				socket.on('updaterooms', function(rooms, current_room){
+					$('#rooms').empty(); //make sure this div is empty at the beginning of each update
+					$.each(rooms, function(key, value){
+						if(value == current_room){
+							$('#rooms').append(value);
+						}else{
+							$('#rooms').append('  |  <a href="#" onclick="switch_room(\''+value+'\')">' + value + '</a> | ')
+						}
+					})
+				});
+
+
+				socket.on('load_messages', function(data){
+					$('#error').empty();//resetting the error message
+					current_user = data.current_user;
+					var messages = data.messages;
+					var messages_thread = '';
+					console.log(data.room);
+					console.log(data.message);
+					$('#name').append(" Welcome " + current_user +"!");
+
+
+					for(var i =0; i < messages.length; i++){
+						messages_thread += "<p>" + messages[i].name + " :    " + messages[i].message + "</p>";
+					}
+
+					$('#message_board').append(messages_thread);
+					
+				});
+
+				socket.on('update', function(data){
+					$('#update').append("<p class='update'>"+data.message+"</p>");
+				});
+
+
+				$('#logout').on('click', function(){
+					console.log('clicking');
+					socket.emit('logout', socket.user);
+				})
+
+				socket.on('disconnected', function(){
+					// console.log('should start new prompt');
+					$('#name').empty();
+					$('#update').empty();
+					$('#message_board').empty();
+					new_user();
+				})
+
+				socket.on('post_new_message', function(data){
+					//coming back from the backend
+					$('#message_board').append("<p>"+ data.user + ": "+data.new_message + "</p>");
+				});
+
+
+				$('#new_message').submit(function(){
+					console.log('trying to add new message on client side');
+					socket.emit('new_message', {message: $('#message').val(), user: current_user});
+					document.getElementsByName('message_form')[0].reset();
+					return false;
+				});
+
+			})
+
+		</script>
+
+	</head>
+	<body>
+
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div id="header">
+				<h2>Conversation Board</h2>
+				<div id="name"></div>
+			</div>
+
+			<button id="logout" class="btn btn-default">Logout</button>
+			<div id="rooms"></div>
+		</nav>
+		<div id="body">
+			<div id="error" style="color:red;"></div>
+			<h4> &#9830 Join the Chat &#9830 </h4>
+			<div id="message_board"></div>
+
+			<div id="activity">
+				<strong>Chatroom Activity: </strong>
+				<div id="update" style="color: blue;"></div>
+			</div>
+
+			<form class="form-horizontal" id="new_message" name="message_form">
+				<input class="form-control" style="width:650px;" type="text" id="message" placeholder="enter your message here...">
+				<input type="submit" class="btn btn-default" value="Send">
+			</form>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript">
+
+	var socket = io.connect();
+
+	function switch_room(room){
+		console.log("switching room", room);
+		socket.emit('switchRoom', room);
+	};
+
+</script>

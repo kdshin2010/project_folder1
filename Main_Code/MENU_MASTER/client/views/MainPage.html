@@ -1,0 +1,36 @@
+<div ng-controller='MenuController' id="main_page">
+	<h2 id='home_logo'>Home</h2>
+<div class = 'container'>
+	<div class='col-lg-6' id='category_box'>
+		<h4 style="margin-left: 70px">Add Category</h4>
+		<div class="input-group">
+			<input type="text" class="form-control" ng-model='newMenuCategory.name'>
+	      	<span class="input-group-btn">
+	        <button class="btn btn-success" type="button" ng-click='addMenuCategories()'>Add</button>
+	      </span>
+		</div>
+	</div>
+	<div id='menu_item_box'>
+	{{categories}}
+		<form class = 'form-inline'>
+			Select Category: <select class="form-control" ng-model='menuCategory' id='select_category'>
+    			<option value="" disabled selected>Select</option>
+				<option ng-repeat='x in menuCategories' value='{{x._id}}' ng-bind='x.name' placeholder='Choose Category'></option>
+			</select>
+			<div class="form-group">
+			    <label>Menu Item</label>
+			    <input type="text" class="form-control" ng-model='menuItem.name' placeholder="Menu Item Name">
+			  </div>
+			  <div class="form-group">
+			    <label>Price</label>
+			    <input type="text" class="form-control" id="exampleInputEmail2" ng-model='menuItem.price' placeholder="Price">
+			  </div>
+			  <button type="submit" ng-click='addMenuItems(menuCategory)' class="btn btn-default">Add Menu Item</button>
+		</form>
+	</div>
+</div>
+</div>
+
+
+
+

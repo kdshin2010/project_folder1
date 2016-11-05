@@ -1,0 +1,32 @@
+<html>
+<head>
+	<title>List of Tigers</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <style>
+    	.Heading {
+			margin-left:30px;
+			margin-top:40px;
+		}
+		.tigers {
+			margin-left:45px;
+		}
+	</style>
+
+</head>
+<body>
+	<div class= 'Heading'>
+		<a href="/">Create A New Tiger</a>
+	</div>
+	<div class= 'tigers'>
+		<h3>Here are the List of Tigers</h3>
+		<% for (var x in tigers) { %> 
+		<p>Name: <a href="/tiger/<%=tigers[x]._id %>"><%= tigers[x].name %></a></p>
+		<p>Info: <%= tigers[x].info %></p>
+		<p>Birthday: <%= tigers[x].birthday %></p>
+		<p>Identification #: <%= tigers[x]._id %></p>
+		<form action = 'removeTiger/<%=tigers[x]._id %>' method='post'>
+			<p><button type='submit' method = 'post' type='submit'>Delete Tiger</button></br></br> <% } %>
+		</form>
+	</div>
+</body>
+</html>

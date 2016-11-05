@@ -1,0 +1,23 @@
+	
+<div>
+	<h3>Add a New Customer</h3>
+	<form>
+		Customer Name: <input type = "text" ng-model='newCustomer'>
+		<input type = 'submit' value = 'Add' ng-click='addCustomer()'>
+	</form></br>
+	<table>
+		<h3></h3>
+		<div ng-repeat="customer in customers">
+			<p>{{customer.name}}<p>
+		<tr>
+			<th>Customer Name</th>
+			<th>Created at</th>
+			<th>Actions</th>
+		</tr>
+		<tr>
+			<td>{{customers.name}}</td>
+			<td>July 25 2015</td>
+			<td><button>Click Me</button></td>
+	</table>
+</div>
+

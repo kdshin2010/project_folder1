@@ -1,0 +1,27 @@
+Authentication
+
+//Createa Nav Bar - use Bootstrap Material Design
+	-insert navbar div in with ng-include
+
+//Work on Registration and Login
+	-create register.html file
+	-create login.html
+	-create partials folder --> within partiasl add changepass.html
+	-input ng-clude in dropdown div
+	-modify login and register templates
+
+//Create Auth Service
+	*Angular Service are singltons// carrying out common tasks
+	*Create angular service for authenticatio and use for different controllers
+	-Open Firebase/login authentication
+	-create service folder
+		-add auth.js
+	-scripts
+		-services
+			-auth.js
+
+	-inject FURL, $firebaseAuth, $firebase
+	-create Auth Object that will authenticate
+
+//Create Auth Controller
+	-create controllers folder

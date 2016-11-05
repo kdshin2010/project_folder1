@@ -1,0 +1,22 @@
+<div ng-controller = 'customersController'>
+	<h3>Add New Customer</h3>
+			<form>
+				<input type = "text" ng-model='newCustomer.name'>
+				<input type='submit' value = 'Add Customer' ng-click='addCustomer()'
+			</form></br></br>
+			Search Customers:<input type="text" ng-model="customer_filter"></br>
+			<table border='1'>
+				<tr>
+					<th>Customer Name</th>
+					<th>Created Dated</th>
+					<th>Actions</th>
+				</tr>
+				<tr ng-repeat="customer in customers | filter:customer_filter | orderBy:'created_at'">
+					<td ng-bind="customer.name"></td>
+					<td ng-bind="customer.created_at"></td>
+					<td>
+						<a href="#/" ng-click='removeCustomer(customer)'>Remove
+					</td>
+				</tr>
+			</table>
+		</div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>​
+​<html>​
+	<head>​
+		<title>Message Board</title>​
+		<meta charset='utf-8'>​
+		<!-- Latest compiled and minified CSS -->​
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">​
+​
+		<!-- Optional theme -->​
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">​
+​
+		<!-- Latest compiled and minified JavaScript -->​
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>​
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>​
+		<style>​
+		#container{​
+			padding: 70px;
+		}
+		.message_board{
+			margin: 50px 0px;
+			border: 2px solid grey;
+			padding: 20px;
+		}
+		.comment_board {
+			margin: 10px 20px;
+		}
+​
+		</style>​
+	</head>​
+	<body>​
+		<div id='container'>​
+			<nav class="navbar navbar-default navbar-fixed-top">​
+				<div class="container">​
+				    <h1>Dojo Message Board</h1>​
+				</div>​
+			</nav>​
+			<% if(typeof(errors) != "undefined"){ %>​
+			<%  	for(var i in errors) {   %>​
+			<div style="color: red;"><%= errors[i].message %></div>​
+				<% } %>​
+			<%  } %>​
+			<form action='/postMessage' method='post'>​
+				<label>Name: </label><br>​
+				<input type='text' name="name"><br>​
+				<label>Message: </label><br>​
+				<textarea class="form-control" rows="3" name='message' style='width: 500px'></textarea><br>​
+				<button type='submit'>Post Message</button>​
+			</form>​
+			<div id='board'>​
+		<% 	if(typeof(infos) !== "undefined"){
+				for(var idx in infos){ %>​
+				<div class='message_board'>​
+					<p><%=infos[idx].name %> says: <%=infos[idx].message %></p>​
+		<%			for(var comment in comments) {  %>​
+			<%			if(comments[comment]._message.toString() === infos[idx]._id.toString()) { %>​
+​
+							<div style='padding: 10px 20px'>​
+								<p><%= comments[comment].name %> says: 
+		<%= comments[comment].comment %></p>​
+							</div>​
+					<%	} %>​
+		<%          }%>​
+					<form action='/postComment/<%= infos[idx].id %>' method='post'>​
+						<label>Name: </label><br>​
+						<input type='text' name="name"><br>​
+						<label>Message: </label><br>​
+						<textarea class="form-control" rows="3" name='comment' style='width: 500px'></textarea><br>​
+						<button type='submit'>Post a Comment!</button>​
+					</form>​
+				</div>​
+				<%}
+			}%>​
+			</div>​
+		</div>​
+	</body>​
+​</html>

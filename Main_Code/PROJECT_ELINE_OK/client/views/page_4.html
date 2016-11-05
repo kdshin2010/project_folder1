@@ -1,0 +1,19 @@
+<div >
+	<h2>Place: Birite Creamery</h2>
+	<div >
+		<p>Your Id: 27d<p>
+		<p>Your Place in Line: 25</p>
+		<p>Estimated Wait Time: 37 minutes</p>
+		<table border = "1" >
+			<tr>
+				<th>id</th>
+				<th>Place in Line</th>
+				<tH>Line Start Time</th>
+			</tr>
+			<tr ng-repeat='person in people'>
+				<td>{{person.name}}</td>
+				<td>{{person.placeinline}}</td>
+				<td>{{person.time_created}}</td>
+			</tr>
+	</div>
+</div>
